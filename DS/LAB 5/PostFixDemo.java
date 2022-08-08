@@ -59,24 +59,27 @@ class infix{
 			if(Character.isLetter(c)){
 				postfix+=c;
 			}
-			else if(c=='('){
+			else if(c=='(')
+            {
 				push(c);
 			}
-			else if(c==')'){
-				while(peek()!='('){
-					postfix+= pop();
+			else if(c==')')
+            {
+				while(peek()!='(')
+                {
+					postfix+=pop();
 				}
-				 pop();
+				pop();
 			}
 			else{
 				if(!isEmpty() && pre(c)<=pre(peek())){
-					postfix+= pop();
+					postfix+=pop();
 				}
-				 push(c);
+				push(c);
 			}
 		}
 		while(!isEmpty()){
-			postfix+= pop();
+			postfix+=pop();
 		}
         return postfix;   
     }
