@@ -1,62 +1,73 @@
 public class CQ 
 {
     //Decalaration 
-    int[] arr=new int[5];
-    int Front=-1,Rear=-1;
+   // Arr.lenght of Circular Queue
+	int front=-1, rear=-1;
+	int Arr[] = new int[5];
 
-    public void enQueue(int n)
-    {
-        if (Rear==arr.length && Front==Rear+1 ) 
-        {
-            System.out.println("Queue is full");
-        } 
-        else 
-        {
-            if(Rear==-1)
-            {
-                Front=0;
-            }
-            Rear=(Rear+1)%arr.length;
-            arr[Rear]=n;
-        }
-    }
-    public void deQueue()
-    {
-        if(Front==-1 || Rear==0) 
-        {
-            System.out.println("Queue is Emplty");
-        } 
-        else 
-        {
-            if(Front==Rear)
-            {
-                Front=-1;
-                Rear=-1;
-            }
-            else
-            {
-                Front=(Front+1)%arr.length;
-            }
-        }
-    }
-    public void Display()
-    {
-        if (Front>Rear) {
+	// Check if the queue is full
+	boolean isFull() {
+		if (front == 0 && rear == Arr.length - 1) {
+			return true;
+		}
+		if (front == rear + 1) {
+			return true;
+		}
+		return false;
+	}
 
-            for(int i=Front;i<arr.length;i++)
-            {
-                 System.out.println(arr[i]);
-            }
-            for(int i=0;i<Rear;i++)
-            {
-                System.out.println(arr[i]);
-            }
-        } else 
-        {
-            for(int i=Front;i<=Rear;i++)
-            {
-                    System.out.println(arr[i]);
-            }    
-        }
-    } 
+	// Check if the queue is empty
+	boolean isEmpty() {
+		if (front == -1)
+			return true;
+		else
+			return false;
+	}
+
+	// Adding an element
+	public void enQueue(int element) {
+		if (isFull()) {
+			System.out.println("Queue is full");
+		} else {
+			if (front == -1)
+				front = 0;
+			rear = (rear + 1) % Arr.length;
+			Arr[rear] = element;
+			System.out.println("Inserted " + element);
+		}
+	}
+
+	// Removing an element
+	public int deQueue() {
+		int element;
+		if (isEmpty()) {
+			System.out.println("Queue is empty");
+			return (-1);
+		} else {
+			element = Arr[front];
+			if (front == rear) {
+				front = -1;
+				rear = -1;
+			} /* Q has only one element, so we reset the queue after deleting it. */
+			else {
+				front = (front + 1) % Arr.length;
+			}
+			return (element);
+		}
+	}
+
+	void Display() {
+		/* Method to display status of Circular Queue */
+		int i;
+		if (isEmpty()) {
+			System.out.println("Empty Queue");
+		} else {
+			System.out.println("Front -> " + front);
+			System.out.println("Arr -> ");
+			for (i = front; i != rear; i = (i + 1) % Arr.length)
+				System.out.print(Arr[i] + " ");
+			System.out.println(Arr[i]);
+			System.out.println("Rear -> " + rear);
+		}
+	}
 }
